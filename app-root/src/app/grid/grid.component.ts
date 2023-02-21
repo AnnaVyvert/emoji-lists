@@ -33,7 +33,8 @@ export class GridComponent implements OnInit {
           this.allKeys = Object.keys(this.emojis)
           let favorite = getStoreArr(this.menu[1]);
           let deleted = getStoreArr(this.menu[2]);
-          // this.allKeys = this.allKeys.filter(e=>)
+          console.log(favorite, deleted)
+          this.allKeys = this.allKeys.filter((e: string)=>!favorite.includes(e) && !deleted.includes(e))
         }else{
           this.allKeys = getStoreArr(this.menu[this.menuPoint]);
         }
@@ -49,7 +50,15 @@ export class GridComponent implements OnInit {
 
   pickPoint(i: number) {
     this.menuPoint = i;
-    this.allKeys = this.menuPoint===0? Object.keys(this.emojis) : getStoreArr(this.menu[this.menuPoint])
+    if (this.menuPoint===0){
+      this.allKeys = Object.keys(this.emojis)
+      let favorite = getStoreArr(this.menu[1]);
+      let deleted = getStoreArr(this.menu[2]);
+      console.log(favorite, deleted)
+      this.allKeys = this.allKeys.filter((e: string)=>!favorite.includes(e) && !deleted.includes(e))
+    }else{
+      this.allKeys = getStoreArr(this.menu[this.menuPoint]);
+    }
     console.log(this.allKeys);
     
     this.foundKeys = this.allKeys
