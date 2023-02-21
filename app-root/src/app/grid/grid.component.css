@@ -42,6 +42,10 @@
   border-top: 1px solid;
 }
 
+.preview img {
+  width: 25px;
+}
+
 .title {
   grid-column-start: 2;
   grid-column-end: 5;
