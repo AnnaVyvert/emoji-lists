@@ -1,23 +1,37 @@
 <div class="wrapper">
   <div class="menu">
-    <span [ngClass]="i === menuPoint? 'active' : ''" *ngFor="let e of menu; index as i;" (click)='pickPoint(i)'>{{menu[i]}}</span>
+    <span
+      [ngClass]="i === menuPoint ? 'active' : ''"
+      *ngFor="let e of menu; index as i"
+      (click)="pickPoint(i)"
+      >{{ menu[i] }}</span
+    >
   </div>
-  <div class="title">{{menu[menuPoint]}}</div>
-  <div class="search-bar">search-bar</div>
+  <div class="title">{{ menu[menuPoint] }}</div>
+  <div class="search-bar">
+    <input
+      type="text"
+      placeholder="emoji name"
+      (change)="findKeys()"
+      #emojiName
+    />
+    <!-- <span class=''></span> -->
+  </div>
   <div class="name-head">name-head</div>
   <div class="link-head">link-head</div>
   <div class="preview">preview</div>
   <div class="actions-head">actions-head</div>
-  
+
   <ng-container *ngFor="let e of srcs">
-    <div class="name-content">{{e.name}}</div>
-    <div class="link-content">{{e.link}}</div>
-    <div class="preview-content"><img src={{e.link}} alt="" srcset=""></div>
+    <div class="name-content">{{ e.name }}</div>
+    <div class="link-content"><a href="{{ e.link }}">link</a></div>
+    <div class="preview-content">
+      <img src="{{ e.link }}" alt="" srcset="" />
+    </div>
     <div class="actions-content">
-      <span class='btn'>*</span>
-      <span class='btn'>X</span>
+      <span class="btn">*</span>
+      <span class="btn">X</span>
     </div>
   </ng-container>
-  <div class='btn load-more' (click)="loadMore()">load more</div>
-  
+  <div class="btn load-more" (click)="loadMore()" #loadMoreBtn>load more</div>
 </div>

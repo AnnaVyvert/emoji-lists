@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'grid-component',
@@ -11,18 +11,26 @@ export class GridComponent implements OnInit {
   previewEmoji: string = '';
   srcs: any[] = [''];
   amount_plus: number = 50;
-  amount_state: number = 50;
+  amount_state: number = this.amount_plus;
   emojis: any = {}
+  allKeys: any = []
+  foundKeys: any = []
+  
+  @ViewChild('emojiName') emojiName: any;
+  @ViewChild('loadMoreBtn') loadMoreBtn: any;
 
   ngOnInit() {
     fetch('https://api.github.com/emojis')
       .then((r) => r.json())
       .then((data) => {
         this.emojis = data
-        const allKeys = Object.keys(data);
-        const partKeys = allKeys.splice(0, this.amount_plus);
-        this.srcs = partKeys.map((e) => {
-          return { name: e, link: data[e] };
+
+        this.allKeys = Object.keys(this.emojis);
+        this.foundKeys = this.allKeys
+
+        const partKeys = this.foundKeys.splice(0, 0);
+        this.srcs = partKeys.map((e: any) => {
+          return { name: e, link: this.emojis[e] };
         });
 
       });
@@ -34,13 +42,23 @@ export class GridComponent implements OnInit {
   }
 
   loadMore(){
-    const allKeys = Object.keys(this.emojis);
-    const partKeys = allKeys.splice(this.amount_state, this.amount_plus);
-    const more_srcs = partKeys.map((e) => {
+    const partKeys = this.foundKeys.splice(this.amount_state, this.amount_plus);
+    const more_srcs = partKeys.map((e: any) => {
       return { name: e, link: this.emojis[e] };
     });
     this.srcs = [...this.srcs, ...more_srcs]
 
     this.amount_state += this.amount_plus
+  }
+
+  findKeys(){
+    let s = this.emojiName.nativeElement.value
+    this.foundKeys = this.allKeys.filter((e: string)=>e.includes(s))
+    this.loadMoreBtn.nativeElement.hidden = this.foundKeys < this.amount_plus
+    const partKeys = this.foundKeys.splice(0, this.amount_plus);
+    // console.log(s, fitKeys)
+    this.srcs = partKeys.map((e: any) => {
+      return { name: e, link: this.emojis[e] };
+    });
   }
 }
