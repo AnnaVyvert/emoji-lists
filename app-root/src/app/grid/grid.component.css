@@ -5,6 +5,15 @@
   /* grid-auto-rows: 100px; */
 }
 
+.preview-modal {
+  position: absolute;
+  display: none;
+  background-color: white;
+  border: 1px solid;
+  border-radius: 1em;
+  padding: 1em;
+}
+
 .btn {
   padding: 0.6em;
   margin: 0.2em;
