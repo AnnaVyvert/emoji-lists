@@ -6,10 +6,18 @@
   <div class="search-bar">search-bar</div>
   <div class="name-head">name-head</div>
   <div class="link-head">link-head</div>
-  <div class="preview"><img src={{preview_emoji}} alt="" srcset=""></div>
+  <div class="preview">preview</div>
   <div class="actions-head">actions-head</div>
-  <div class="name-content">name-content</div>
-  <div class="link-content">link-content</div>
-  <div class="pic-content">pic-content</div>
-  <div class="actions-content">actions-content</div>
+  
+  <ng-container *ngFor="let e of srcs">
+    <div class="name-content">{{e.name}}</div>
+    <div class="link-content">{{e.link}}</div>
+    <div class="preview-content"><img src={{e.link}} alt="" srcset=""></div>
+    <div class="actions-content">
+      <span class='btn'>*</span>
+      <span class='btn'>X</span>
+    </div>
+  </ng-container>
+  <div class='btn load-more' (click)="loadMore()">load more</div>
+  
 </div>
