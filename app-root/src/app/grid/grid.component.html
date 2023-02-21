@@ -14,15 +14,18 @@
   <div class="preview">preview</div>
   <div class="actions-head">actions-head</div>
   
-  <ng-container *ngFor="let e of srcs">
-    <div class="name-content">{{e.name}}</div>
-    <div class="link-content"><a href={{e.link}}>link</a></div>
-    <div class="preview-content"><img src={{e.link}} alt="" srcset="" (mouseenter)="showPreview($event, e.link)" (mouseleave)="hidePreview()"></div>
-    <div class="actions-content">
-      <span class='btn' (click)="addFavorite($event, e.name)">*</span>
-      <span class='btn'>x</span>
+  <ng-container *ngFor="let e of srcs; index as i;">
+    <div class="name-content" id='rows{{i}}'>{{e.name}}</div>
+    <div class="link-content" id='rows{{i}}'><a href={{e.link}}>link</a></div>
+    <div class="preview-content" id='rows{{i}}'><img src={{e.link}} alt="" srcset="" (mouseenter)="showPreview($event, e.link)" (mouseleave)="hidePreview()"></div>
+    <div class="actions-content" id='rows{{i}}' [ngSwitch]="menuPoint">
+      <span class='btn' (click)="addFavorite($event, e.name)" *ngSwitchCase="0">*</span>
+      <span class='btn' (click)="removeElem($event, e.name, i)" *ngSwitchCase="0">x</span>
+      <span class='btn' (click)="removeElem($event, e.name, i)" *ngSwitchCase="1">x</span>
+      <span class='btn' (click)="removeElem($event, e.name, i)" *ngSwitchCase="2">restore</span>
     </div>
   </ng-container>
+
   <div class='btn load-more' (click)="loadMore()" #loadMoreBtn>load more</div>
   
 </div>

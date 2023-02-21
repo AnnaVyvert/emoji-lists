@@ -6,6 +6,7 @@
 }
 
 .preview-modal {
+  /* transition: 0.5s; */
   position: absolute;
   display: none;
   background-color: white;
