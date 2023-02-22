@@ -4,16 +4,16 @@
   <div class="menu">
     <span [ngClass]="i === menuPoint? 'active' : ''" *ngFor="let e of menu; index as i;" (click)='pickPoint(i)'>{{menu[i]}}</span>
   </div>
-  <div class="title">{{menu[menuPoint]}}</div>
+  <div class="title">list: {{menu[menuPoint]}}</div>
   <div class="search-bar">
     <input type="text" class='form-control' placeholder='emoji name' (change)="findKeys()" #emojiName>
     
     <!-- <span class=''></span> -->
   </div>
-  <div class="name-head ">name-head</div>
-  <div class="link-head">link-head</div>
+  <div class="name-head ">name</div>
+  <div class="link-head">link</div>
   <div class="preview">preview</div>
-  <div class="actions-head">actions-head</div>
+  <div class="actions-head">actions</div>
   
   <ng-container *ngFor="let e of srcs; index as i;">
     <div class="name-content rows{{i}}">{{e.name}}</div>
