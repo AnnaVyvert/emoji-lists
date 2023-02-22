@@ -5,8 +5,13 @@
   /* grid-auto-rows: 100px; */
 }
 
+.favorite {
+  filter: brightness(1.2)
+}
+
 .preview-modal {
   /* transition: 0.5s; */
+  z-index: 1;
   position: absolute;
   display: none;
   background-color: white;
@@ -33,6 +38,7 @@
   padding: 1em;
   background-color: gainsboro;
   text-align: center;
+  border-radius: .3em;
 }
 
 .menu {
