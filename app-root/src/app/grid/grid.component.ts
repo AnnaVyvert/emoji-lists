@@ -16,7 +16,7 @@ export class GridComponent implements OnInit {
   menuPoint: number = getStoreMenuPoint();
   previewEmoji: string = '';
   srcs: any[] = [''];
-  amount_plus: number = 10;
+  amount_plus: number = 15;
   amount_state: number = this.amount_plus;
   emojis: any = {};
   allKeys: any = [];
