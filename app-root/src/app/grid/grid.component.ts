@@ -72,21 +72,6 @@ export class GridComponent implements OnInit {
     return this.allKeys;
   }
 
-  pickPoint(i: number) {
-    setStoreMenuPoint(i);
-    this.emojiName.nativeElement.value = '';
-    this.menuPoint = i;
-
-    this.allKeys = this.getList();
-    this.foundKeys = this.allKeys;
-
-    const partKeys = this.foundKeys.splice(0, this.amount_plus);
-    this.mapKeys(partKeys)
-
-    this.amount_state = 0;
-    this.updLoadMoreBtn();
-  }
-
   loadMore() {
     const partKeys = this.foundKeys.splice(0, this.amount_plus);
     let favorite = getStoreArr(this.menu[1]);
@@ -110,7 +95,37 @@ export class GridComponent implements OnInit {
     this.updLoadMoreBtn();
   }
 
+  a(){
+    console.log('dddd');
+    
+  }
+
+  // showPreview(e: any, link: string) {
+  //   // document.querySelector('.modal-bg')?.classList.remove('none')
+  //   let target = e.target || e.srcElement || e.currentTarget;
+  //   target = target.parentElement;
+  //   const preview = this.previewModal.nativeElement;
+  //   preview.src = link;
+  //   setTimeout(() => {
+  //     preview.style.display = 'block';
+  //     let rect = target.getBoundingClientRect();
+  //     let preview_top_position = rect.top + target.offsetWidth / 2;
+  //     let preview_left_position = rect.left - target.offsetWidth / 2;
+  //     preview.style.top = preview_top_position + 'px';
+  //     preview.style.left = preview_left_position + 'px';
+  //   }, 500);
+  // }
+
+  // hidePreview() {
+  //   const preview = this.previewModal.nativeElement;
+  //   preview.style.display = 'none';
+  //   setTimeout(() => {
+  //     preview.style.display = 'none';
+  //   }, 500);
+  // }
+
   showPreview(e: any, link: string) {
+    // document.querySelector('.modal-bg')?.classList.remove('none')
     let target = e.target || e.srcElement || e.currentTarget;
     target = target.parentElement;
     const preview = this.previewModal.nativeElement;
