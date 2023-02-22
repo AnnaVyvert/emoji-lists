@@ -1,0 +1,98 @@
+.side-nav 
+  height: 100%
+  width: 0
+  position: fixed
+  z-index: 1
+  top: 0
+  left: 0
+  background-color: lightgray
+  overflow-x: hidden
+  transition: 0.5s
+  /* padding-top: 60px */
+  border-right: solid
+
+
+.side-nav span 
+  white-space: nowrap
+  padding: 8px 8px 8px 16px
+  text-decoration: none
+  font-size: 1em
+  color: #181616
+  display: block
+  transition: 0.3s
+  /* border-bottom: 2px dashed */
+  border-bottom: solid 2px
+  cursor: pointer
+
+
+.side-nav span:hover 
+  color: #f1f1f1
+
+
+.side-nav .close-btn 
+  border-bottom: none
+  font-size: 2em
+  display: flex
+  justify-content: center
+
+
+.nav-structure .exit-btn 
+  border-bottom: none
+  font-size: 1em
+  /* margin-left: 50px */
+
+
+@media screen and (max-height: 450px) 
+  .side-nav 
+    padding-top: 15px
+  
+  .side-nav span 
+    font-size: 18px
+  
+
+
+.other-menu-side 
+  height: 100vh
+  width: 100vw
+  /* background-color: rgba(0, 0, 0, 0.4) */
+  /* position: fixed */
+  /* display: flex */
+  justify-content: center
+  align-items: center
+  transform: scale(0)
+  top: 0
+  left: 0
+  /* z-index: 0 */
+
+
+.other-menu-side.active 
+  transform: scale(1)
+
+
+.side-to-nav 
+  float: right
+  height: 100%
+  width: 0
+  position: fixed
+  /* z-index: 1 */
+  /* background-color: red */
+  top: 0
+  right: 0
+  /* background-color: lightgray */
+  /* overflow-x: hidden */
+  /* transition: 0.5s */
+  padding-top: 60px
+
+
+.menu-btn 
+  font-size: 1.8em
+  font-weight: bold
+  cursor: pointer
+  position: absolute
+  color: whitesmoke
+  margin-left: 0.2em
+
+.nav-structure
+  display: grid
+  grid-template-columns: auto auto auto
+  align-items: center
