@@ -31,14 +31,11 @@ export class GridComponent implements OnInit {
       .then((r) => r.json())
       .then((data) => {
         this.emojis = data;
-
         this.amount_state = 0;
 
         this.allKeys = this.getList();
-
         this.foundKeys = this.allKeys;
         let favorite = getStoreArr(this.menu[1]);
-
         const partKeys = this.foundKeys.splice(0, this.amount_plus);
         this.srcs = partKeys.map((e: any) => {
           return {
@@ -53,7 +50,6 @@ export class GridComponent implements OnInit {
   getList() {
     if (this.menuPoint === 0) {
       this.allKeys = Object.keys(this.emojis);
-      // let favorite = getStoreArr(this.menu[1]);
       let deleted = getStoreArr(this.menu[2]);
       this.allKeys = this.allKeys.filter((e: string) => !deleted.includes(e));
     } else {
@@ -66,15 +62,13 @@ export class GridComponent implements OnInit {
     setStoreMenuPoint(i);
     this.emojiName.nativeElement.value = '';
     this.menuPoint = i;
-    this.allKeys = this.getList();
-    console.log(this.allKeys);
 
+    this.allKeys = this.getList();
     this.foundKeys = this.allKeys;
+
     const partKeys = this.foundKeys.splice(0, this.amount_plus);
-    let favorite = getStoreArr(this.menu[1]);
-    this.srcs = partKeys.map((e: any) => {
-      return { name: e, link: this.emojis[e], favorite: favorite.includes(e) };
-    });
+    this.mapKeys(partKeys)
+
     this.amount_state = 0;
     this.updLoadMoreBtn();
   }
@@ -93,15 +87,13 @@ export class GridComponent implements OnInit {
 
   findKeys() {
     let s = this.emojiName.nativeElement.value;
+
     this.allKeys = this.getList();
     const found = this.allKeys.filter((e: string) => e.includes(s));
-    this.updLoadMoreBtn();
     const partKeys = found.splice(0, this.amount_plus);
-    // console.log(s, fitKeys)
-    let favorite = getStoreArr(this.menu[1]);
-    this.srcs = partKeys.map((e: any) => {
-      return { name: e, link: this.emojis[e], favorite: favorite.includes(e) };
-    });
+    this.mapKeys(partKeys)
+    
+    this.updLoadMoreBtn();
   }
 
   showPreview(e: any, link: string) {
@@ -112,7 +104,6 @@ export class GridComponent implements OnInit {
     setTimeout(() => {
       preview.style.display = 'block';
       let rect = target.getBoundingClientRect();
-      // console.log(rect.top, rect.right, rect.bottom, rect.left);
       let preview_top_position = rect.top + target.offsetWidth / 2;
       let preview_left_position = rect.left - target.offsetWidth / 2;
       preview.style.top = preview_top_position + 'px';
@@ -155,7 +146,6 @@ export class GridComponent implements OnInit {
     setStoreArr(listName, list);
 
     // this.updSrcs(1)
-    this.updLoadMoreBtn();
   }
 
   removeElemArr(arr: string[], val: string) {
@@ -176,23 +166,10 @@ export class GridComponent implements OnInit {
     this.allKeys = this.getList();
     this.foundKeys = this.allKeys;
     let favorite = getStoreArr(this.menu[1]);
-    console.log({
-      all: this.allKeys,
-      found: this.foundKeys,
-      favorite: favorite,
-      state: this.amount_state,
-    });
     const partKeys = this.foundKeys.splice(
       this.amount_state + this.amount_plus,
       length
     );
-    console.log({
-      all: this.allKeys,
-      found: this.foundKeys,
-      favorite: favorite,
-      part: partKeys,
-      state: this.amount_state,
-    });
     const add_srcs = partKeys.map((e: any) => {
       return {
         name: e,
@@ -200,12 +177,14 @@ export class GridComponent implements OnInit {
         favorite: favorite.includes(e),
       };
     });
-    console.log({
-      srcs: this.srcs,
-      add: add_srcs,
-      a: [...this.srcs, ...add_srcs],
-    });
     if (add_srcs.length === 0) this.srcs = [...this.srcs, ...add_srcs];
     this.updLoadMoreBtn();
+  }
+
+  mapKeys(partKeys: {}[]){
+    let favorite = getStoreArr(this.menu[1]);
+    this.srcs = partKeys.map((e: any) => {
+      return { name: e, link: this.emojis[e], favorite: favorite.includes(e) };
+    });
   }
 }
