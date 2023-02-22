@@ -6,23 +6,24 @@
   </div>
   <div class="title">{{menu[menuPoint]}}</div>
   <div class="search-bar">
-    <input type="text" placeholder='emoji name' (change)="findKeys()" #emojiName>
+    <input type="text" class='form-control' placeholder='emoji name' (change)="findKeys()" #emojiName>
+    
     <!-- <span class=''></span> -->
   </div>
-  <div class="name-head">name-head</div>
+  <div class="name-head ">name-head</div>
   <div class="link-head">link-head</div>
   <div class="preview">preview</div>
   <div class="actions-head">actions-head</div>
   
   <ng-container *ngFor="let e of srcs; index as i;">
-    <div class="name-content" id='rows{{i}}'>{{e.name}}</div>
-    <div class="link-content" id='rows{{i}}'><a href={{e.link}}>link</a></div>
-    <div class="preview-content" id='rows{{i}}'><img src={{e.link}} alt="" srcset="" (mouseenter)="showPreview($event, e.link)" (mouseleave)="hidePreview()"></div>
-    <div class="actions-content" id='rows{{i}}' [ngSwitch]="menuPoint">
-      <span class='btn' (click)="addFavorite($event, e.name)" *ngSwitchCase="0">*</span>
-      <span class='btn' (click)="removeElem($event, e.name, i)" *ngSwitchCase="0">x</span>
-      <span class='btn' (click)="removeElem($event, e.name, i)" *ngSwitchCase="1">x</span>
-      <span class='btn' (click)="removeElem($event, e.name, i)" *ngSwitchCase="2">restore</span>
+    <div class="name-content rows{{i}}">{{e.name}}</div>
+    <div class="link-content rows{{i}}"><a href={{e.link}}>link</a></div>
+    <div class="preview-content rows{{i}}"><img src={{e.link}} [ngClass]="e.favorite? 'favorite' : ''" alt="" srcset="" (mouseenter)="showPreview($event, e.link)" (mouseleave)="hidePreview()"></div>
+    <div class="actions-content rows{{i}}">
+      <span class='btn' (click)="addFavorite($event, e.name)" *ngIf="menuPoint === 0 && !e.favorite">*</span>
+      <span class='btn' (click)="removeElem($event, e.name, i)" *ngIf="menuPoint === 0 && !e.favorite">x</span>
+      <span class='btn' (click)="removeFav($event, e.name, i)" *ngIf="menuPoint === 1">x</span>
+      <span class='btn' (click)="restoreElem($event, e.name, i)" *ngIf="menuPoint === 2">restore</span>
     </div>
   </ng-container>
 
