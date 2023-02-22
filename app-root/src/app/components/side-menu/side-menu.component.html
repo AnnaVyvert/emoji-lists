@@ -4,22 +4,8 @@
     <div></div>
     <span class="close-btn" (click)=openMenu(false)>&times;</span>
   </div>
-  <span >A</span>
-  <span >A</span>
-  <span >A</span>
+  <span *ngFor="let e of menu" [ngClass]="e===activePoint? 'active':''" routerLink='/{{e}}'>{{e}}</span>
 </div>
 <div class="side-to-nav" (click)=openMenu(false)></div>
 
 <span class="menu-btn" (click)=openMenu(true)>&#9776;</span>
-
-<!-- 
-  <span (click)=redirectTo('/personal')>Личный кабинет</span>
-  <span (click)=redirectTo('/sign')>Авторизация</span>
-  <span (click)=redirectTo('/competitions')>Список соревнований</span>
-  <span (click)=redirectTo('/register-competition')>Регистрация соревнования</span>
-  <span (click)=redirectTo('/register-athlet')>Регистрация спортсмена</span>
-  <span (click)=redirectTo('/register-trainer')>Регистрация тренера</span>
-  <span (click)=redirectTo('/athlets')>Список атлетов</span>
-  <span (click)=redirectTo('/trainers')>Список тренеров</span>
-  <span (click)=redirectTo('/judges')>Список судий</span>
-  <span (click)=redirectTo('/admins')>Список админов</span> -->
