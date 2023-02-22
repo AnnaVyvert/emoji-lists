@@ -29,6 +29,14 @@ export class GridComponent implements OnInit {
   @ViewChild('loadMoreBtn') loadMoreBtn: any;
   @ViewChild('previewModal') previewModal: any;
 
+  clearInput(){
+    this.emojiName.nativeElement.value = ''
+    this.allKeys = this.getList();
+    this.foundKeys = this.allKeys;
+    const partKeys = this.foundKeys.splice(0, this.amount_plus);
+    this.mapKeys(partKeys)
+  }
+
   ngOnInit() {
     this.activatedRoute.params.subscribe((entities: any) => {
       this.menuPoint = this.menu.indexOf(entities.listname)
