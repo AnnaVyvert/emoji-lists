@@ -1,10 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import {
   getStoreArr,
-  getStoreMenuPoint,
   setStoreArr,
-  setStoreMenuPoint,
 } from '../helpers/storage-controller';
 
 @Component({
@@ -93,59 +91,6 @@ export class GridComponent implements OnInit {
     this.mapKeys(partKeys)
     
     this.updLoadMoreBtn();
-  }
-
-  a(){
-    console.log('dddd');
-    
-  }
-
-  // showPreview(e: any, link: string) {
-  //   // document.querySelector('.modal-bg')?.classList.remove('none')
-  //   let target = e.target || e.srcElement || e.currentTarget;
-  //   target = target.parentElement;
-  //   const preview = this.previewModal.nativeElement;
-  //   preview.src = link;
-  //   setTimeout(() => {
-  //     preview.style.display = 'block';
-  //     let rect = target.getBoundingClientRect();
-  //     let preview_top_position = rect.top + target.offsetWidth / 2;
-  //     let preview_left_position = rect.left - target.offsetWidth / 2;
-  //     preview.style.top = preview_top_position + 'px';
-  //     preview.style.left = preview_left_position + 'px';
-  //   }, 500);
-  // }
-
-  // hidePreview() {
-  //   const preview = this.previewModal.nativeElement;
-  //   preview.style.display = 'none';
-  //   setTimeout(() => {
-  //     preview.style.display = 'none';
-  //   }, 500);
-  // }
-
-  showPreview(e: any, link: string) {
-    // document.querySelector('.modal-bg')?.classList.remove('none')
-    let target = e.target || e.srcElement || e.currentTarget;
-    target = target.parentElement;
-    const preview = this.previewModal.nativeElement;
-    preview.src = link;
-    setTimeout(() => {
-      preview.style.display = 'block';
-      let rect = target.getBoundingClientRect();
-      let preview_top_position = rect.top + target.offsetWidth / 2;
-      let preview_left_position = rect.left - target.offsetWidth / 2;
-      preview.style.top = preview_top_position + 'px';
-      preview.style.left = preview_left_position + 'px';
-    }, 500);
-  }
-
-  hidePreview() {
-    const preview = this.previewModal.nativeElement;
-    preview.style.display = 'none';
-    setTimeout(() => {
-      preview.style.display = 'none';
-    }, 500);
   }
 
   addFavorite(e: any, name: string) {

@@ -4,7 +4,7 @@
 
 <!-- <div class="modal-bg none"></div> -->
 
-<img class="preview-modal" alt="preview" src='https://github.githubassets.com/images/icons/emoji/unicode/1f4af.png?v8' #previewModal>
+<!-- <img class="preview-modal" alt="preview" src='https://github.githubassets.com/images/icons/emoji/unicode/1f4af.png?v8' #previewModal> -->
 
 <div class="component-wrap">
   <div class="hat">
@@ -32,9 +32,18 @@
     <div class="actions-head head">actions</div>
     
     <ng-container *ngFor="let e of srcs; index as i;">
-      <div class="name-content rows{{i}} {{i%2===0? 'even':'odd'}}">{{e.name}}</div>
-      <div class="link-content rows{{i}} {{i%2===0? 'even':'odd'}}"><a href={{e.link}}>link</a></div>
-      <div class="preview-content rows{{i}} {{i%2===0? 'even':'odd'}}"><img src={{e.link}} [ngClass]="e.favorite? 'favorite' : ''" alt="" srcset="" (mouseenter)="showPreview($event, e.link)" (mouseleave)="hidePreview()" (mouseover)="a()"></div>
+      <div class="name-content rows{{i}} {{i%2===0? 'even':'odd'}}">
+        {{e.name}}
+      </div>
+      <div class="link-content rows{{i}} {{i%2===0? 'even':'odd'}}">
+        <a href={{e.link}}>link</a>
+      </div>
+      <div class="preview-content rows{{i}} {{i%2===0? 'even':'odd'}}">
+        <img src={{e.link}} [ngClass]="e.favorite? 'favorite ' : ''" alt="">
+        <span>
+          <img src={{e.link}} class='' alt="">
+        </span>
+      </div>
       <div class="actions-content rows{{i}} {{i%2===0? 'even':'odd'}}">
         <span class='btn' (click)="addFavorite($event, e.name)" *ngIf="menuPoint === 0 && !e.favorite">*</span>
         <span class='btn' (click)="addDeleted($event, e.name, i)" *ngIf="menuPoint === 0 && !e.favorite">x</span>
