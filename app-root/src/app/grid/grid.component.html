@@ -21,9 +21,9 @@
     <div class="preview-content rows{{i}}"><img src={{e.link}} [ngClass]="e.favorite? 'favorite' : ''" alt="" srcset="" (mouseenter)="showPreview($event, e.link)" (mouseleave)="hidePreview()"></div>
     <div class="actions-content rows{{i}}">
       <span class='btn' (click)="addFavorite($event, e.name)" *ngIf="menuPoint === 0 && !e.favorite">*</span>
-      <span class='btn' (click)="removeElem($event, e.name, i)" *ngIf="menuPoint === 0 && !e.favorite">x</span>
-      <span class='btn' (click)="removeFav($event, e.name, i)" *ngIf="menuPoint === 1">x</span>
-      <span class='btn' (click)="restoreElem($event, e.name, i)" *ngIf="menuPoint === 2">restore</span>
+      <span class='btn' (click)="addDeleted($event, e.name, i)" *ngIf="menuPoint === 0 && !e.favorite">x</span>
+      <span class='btn' (click)="removeElemFromList('favorite', e.name, i)" *ngIf="menuPoint === 1">x</span>
+      <span class='btn' (click)="removeElemFromList('deleted', e.name, i)" *ngIf="menuPoint === 2">restore</span>
     </div>
   </ng-container>
 

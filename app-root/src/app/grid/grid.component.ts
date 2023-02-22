@@ -1,5 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { getStoreArr, setStoreArr } from '../helpers/storage-controller';
+import {
+  getStoreArr,
+  getStoreMenuPoint,
+  setStoreArr,
+  setStoreMenuPoint,
+} from '../helpers/storage-controller';
 
 @Component({
   selector: 'grid-component',
@@ -8,7 +13,7 @@ import { getStoreArr, setStoreArr } from '../helpers/storage-controller';
 })
 export class GridComponent implements OnInit {
   menu: string[] = ['all', 'favorite', 'deleted'];
-  menuPoint: number = 0;
+  menuPoint: number = getStoreMenuPoint();
   previewEmoji: string = '';
   srcs: any[] = [''];
   amount_plus: number = 10;
@@ -52,12 +57,13 @@ export class GridComponent implements OnInit {
       let deleted = getStoreArr(this.menu[2]);
       this.allKeys = this.allKeys.filter((e: string) => !deleted.includes(e));
     } else {
-      this.allKeys = getStoreArr(this.menu[this.menuPoint]);
+      this.allKeys = getStoreArr(this.menu[this.menuPoint]).sort();
     }
     return this.allKeys;
   }
 
   pickPoint(i: number) {
+    setStoreMenuPoint(i);
     this.emojiName.nativeElement.value = '';
     this.menuPoint = i;
     this.allKeys = this.getList();
@@ -70,7 +76,7 @@ export class GridComponent implements OnInit {
       return { name: e, link: this.emojis[e], favorite: favorite.includes(e) };
     });
     this.amount_state = 0;
-    this.updLoadMoreBtn()
+    this.updLoadMoreBtn();
   }
 
   loadMore() {
@@ -82,14 +88,14 @@ export class GridComponent implements OnInit {
     this.srcs = [...this.srcs, ...more_srcs];
 
     this.amount_state += this.amount_plus;
-    this.updLoadMoreBtn()
+    this.updLoadMoreBtn();
   }
 
   findKeys() {
     let s = this.emojiName.nativeElement.value;
     this.allKeys = this.getList();
     const found = this.allKeys.filter((e: string) => e.includes(s));
-    this.updLoadMoreBtn()
+    this.updLoadMoreBtn();
     const partKeys = found.splice(0, this.amount_plus);
     // console.log(s, fitKeys)
     let favorite = getStoreArr(this.menu[1]);
@@ -127,50 +133,79 @@ export class GridComponent implements OnInit {
     let img = target.parentElement.previousSibling.firstChild;
     img.style.filter = 'brightness(1.2)';
     this.srcs.find((e) => e.name === name).favorite = true;
+
     let favorite = getStoreArr('favorite');
     favorite.push(name);
     setStoreArr('favorite', favorite);
   }
 
-  removeElem(e: any, name: string, i: number) {
+  addDeleted(e: any, name: string, i: number) {
+    this.hideGridRow(i);
 
-    this.hideGridRow(i)
     let deleted = getStoreArr('deleted');
     deleted.push(name);
     setStoreArr('deleted', deleted);
   }
 
-  removeFav(e: any, name: string, i: number) {
-    const rowNodes = document.querySelectorAll('.rows' + i);
-    rowNodes.forEach((e: any) => (e.hidden = true));
-    const favorite = getStoreArr('favorite');
+  removeElemFromList(listName: string, name: string, i: number) {
+    this.hideGridRow(i);
 
-    this.deleteArrElem(favorite, name);
+    const list = getStoreArr(listName);
+    this.removeElemArr(list, name);
+    setStoreArr(listName, list);
 
-    setStoreArr('favorite', favorite);
+    // this.updSrcs(1)
+    this.updLoadMoreBtn();
   }
 
-  restoreElem(e: any, name: string, i: number) {
-    const rowNodes = document.querySelectorAll('.rows' + i);
-    rowNodes.forEach((e: any) => (e.hidden = true));
-    const deleted = getStoreArr('deleted');
-
-    this.deleteArrElem(deleted, name);
-
-    setStoreArr('deleted', deleted);
-  }
-
-  deleteArrElem(arr: string[], val: string) {
+  removeElemArr(arr: string[], val: string) {
     const index = arr.indexOf(val);
     if (index !== -1) arr.splice(index, 1);
   }
 
-  hideGridRow(i: number){
+  hideGridRow(i: number) {
     const rowNodes = document.querySelectorAll('.rows' + i);
     rowNodes.forEach((e: any) => (e.hidden = true));
   }
 
-  updLoadMoreBtn(){
+  updLoadMoreBtn() {
     this.loadMoreBtn.nativeElement.hidden = this.foundKeys < this.amount_plus;
+  }
+
+  updSrcs(length: number) {
+    this.allKeys = this.getList();
+    this.foundKeys = this.allKeys;
+    let favorite = getStoreArr(this.menu[1]);
+    console.log({
+      all: this.allKeys,
+      found: this.foundKeys,
+      favorite: favorite,
+      state: this.amount_state,
+    });
+    const partKeys = this.foundKeys.splice(
+      this.amount_state + this.amount_plus,
+      length
+    );
+    console.log({
+      all: this.allKeys,
+      found: this.foundKeys,
+      favorite: favorite,
+      part: partKeys,
+      state: this.amount_state,
+    });
+    const add_srcs = partKeys.map((e: any) => {
+      return {
+        name: e,
+        link: this.emojis[e],
+        favorite: favorite.includes(e),
+      };
+    });
+    console.log({
+      srcs: this.srcs,
+      add: add_srcs,
+      a: [...this.srcs, ...add_srcs],
+    });
+    if (add_srcs.length === 0) this.srcs = [...this.srcs, ...add_srcs];
+    this.updLoadMoreBtn();
   }
 }

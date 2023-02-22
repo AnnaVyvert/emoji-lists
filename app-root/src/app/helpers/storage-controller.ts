@@ -18,3 +18,15 @@ export function setStoreArr(e: string, val: any): boolean  {
     return false
   }
 }
+
+export function getStoreMenuPoint(){
+  let e = window.localStorage['point']
+  if (parseInt(e) >= 0 && parseInt(e) <= 2)
+    return parseInt(e)
+  else
+    return 0
+}
+
+export function setStoreMenuPoint(e: string | number){
+  window.localStorage['point'] = e
+}
