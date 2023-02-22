@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   getStoreArr,
   getStoreMenuPoint,
@@ -12,8 +13,10 @@ import {
   styleUrls: ['./grid.component.css'],
 })
 export class GridComponent implements OnInit {
+  constructor(private activatedRoute: ActivatedRoute) {}
+
   menu: string[] = ['all', 'favorite', 'deleted'];
-  menuPoint: number = getStoreMenuPoint();
+  menuPoint: number = 0;
   previewEmoji: string = '';
   srcs: any[] = [''];
   amount_plus: number = 15;
@@ -27,7 +30,9 @@ export class GridComponent implements OnInit {
   @ViewChild('previewModal') previewModal: any;
 
   ngOnInit() {
-    fetch('https://api.github.com/emojis')
+    this.activatedRoute.params.subscribe((entities: any) => {
+      this.menuPoint = this.menu.indexOf(entities.listname)
+      fetch('https://api.github.com/emojis')
       .then((r) => r.json())
       .then((data) => {
         this.emojis = data;
@@ -45,6 +50,7 @@ export class GridComponent implements OnInit {
           };
         });
       });
+    });
   }
 
   getList() {

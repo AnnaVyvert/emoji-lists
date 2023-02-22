@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+
 
 @Component({
   selector: 'side-menu',
@@ -8,7 +9,15 @@ import { Router } from '@angular/router';
 })
 export class SideMenuComponent {
 
-  constructor(private router: Router) { 
+  menu: string[] = ['all', 'favorite', 'deleted'];
+
+  activePoint: string = 'all'
+
+  constructor(private activatedRoute: ActivatedRoute) {
+    this.activatedRoute.params.subscribe((entities: any) => {
+      this.activePoint = entities.listname
+      
+    }) 
   }
 
   isAuth: boolean = window.localStorage['access_token']
@@ -23,6 +32,6 @@ export class SideMenuComponent {
       sideNav?.setAttribute('style', 'width: 0')
       sideToNav?.setAttribute('style', 'width: 0')
     }
-    // document.getElementById("mySidenav").style.width = "230px";
   }
+
 }
