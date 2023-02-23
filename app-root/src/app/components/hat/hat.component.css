@@ -1,0 +1,14 @@
+.hat {
+  background-color: #775fd1;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  font-size: 2em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  font-variant-caps: petite-caps;
+  align-items: center;
+  justify-items: center;
+}
