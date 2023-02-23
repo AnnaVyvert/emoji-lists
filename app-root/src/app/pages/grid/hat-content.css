@@ -1,0 +1,10 @@
+.search-bar2 {
+  width: 60%;
+  display: flex;
+  /* border-radius: 1em; */
+}
+.search-icon {
+  /* background: white url(../../assets/search-icon.svg); */
+  /* background-image: url(../../assets/search-icon.svg); */
+  background-color: white;
+}
