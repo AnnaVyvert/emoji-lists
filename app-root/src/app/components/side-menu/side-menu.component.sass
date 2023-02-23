@@ -1,8 +1,8 @@
-.side-nav 
+.side-nav
   height: 100%
   width: 0
   position: fixed
-  z-index: 1
+  z-index: 2
   top: 0
   left: 0
   background-color: #9d9fde
@@ -14,8 +14,7 @@
 .active
   color: white !important
 
-
-.side-nav span 
+.side-nav span
   white-space: nowrap
   padding: 8px 8px 8px 16px
   text-decoration: none
@@ -26,35 +25,30 @@
   /* border-bottom: 2px dashed */
   border-bottom: solid 2px
   cursor: pointer
+  font-variant: all-small-caps
 
-
-.side-nav span:hover 
+.side-nav span:hover
   color: #f1f1f1
 
-
-.side-nav .close-btn 
+.side-nav .close-btn
   border-bottom: none
   font-size: 2em
   display: flex
   justify-content: center
 
-
-.nav-structure .exit-btn 
+.nav-structure .exit-btn
   border-bottom: none
   font-size: 1em
   /* margin-left: 50px */
 
-
-@media screen and (max-height: 450px) 
-  .side-nav 
+@media screen and (max-height: 450px)
+  .side-nav
     padding-top: 15px
-  
-  .side-nav span 
+
+  .side-nav span
     font-size: 18px
-  
 
-
-.other-menu-side 
+.other-menu-side
   height: 100vh
   width: 100vw
   /* background-color: rgba(0, 0, 0, 0.4) */
@@ -67,12 +61,10 @@
   left: 0
   /* z-index: 0 */
 
-
-.other-menu-side.active 
+.other-menu-side.active
   transform: scale(1)
 
-
-.side-to-nav 
+.side-to-nav
   float: right
   height: 100%
   width: 0
@@ -86,8 +78,7 @@
   /* transition: 0.5s */
   padding-top: 60px
 
-
-.menu-btn 
+.menu-btn
   font-size: 2.5em
   font-weight: bold
   cursor: pointer
